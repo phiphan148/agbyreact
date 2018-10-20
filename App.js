@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import FetchData from './components/FetchData';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,12 +19,15 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  getData = () => {
+      console.log('press the button');
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to my App!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <FetchData getData={this.getData}/>
+        <Text>jsdhjhsd</Text>
       </View>
     );
   }
