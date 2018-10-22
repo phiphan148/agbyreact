@@ -1,53 +1,59 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import FetchData from './components/FetchData';
+import {StyleSheet, Text, View, ActivityIndicator, FlatList} from 'react-native';
+import Header from './components/Header';
+import Banner from './components/Banner';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+export default class App extends React.Component {
 
-type Props = {};
-export default class App extends Component<Props> {
-  getData = () => {
-      console.log('press the button');
-  }
+    constructor(props) {
+        super(props);
+        this.state = {isLoading: true}
+    }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <FetchData getData={this.getData}/>
-        <Text>jsdhjhsd</Text>
-      </View>
-    );
-  }
+    componentDidMount() {
+        return fetch('https://api.myjson.com/bins/pi7ck')
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                    isLoading: false,
+                    dataInfo: responseJson.AG_info,
+                    dataTweet: responseJson.AG_timeline,
+                }, function () {
+
+                });
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    render() {
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, padding: 20}}>
+                    <ActivityIndicator/>
+                </View>
+            )
+        }
+        return (
+            <View style={styles.container}>
+                <Header name={this.state.dataInfo.name}/>
+                <Banner urlBanner={this.state.dataInfo.profile_banner_url} urlProfile={this.state.dataInfo.profile_image_url}/>
+                <FlatList style={styles.content} data={this.state.dataTweet}
+                renderItem={({item}) => <Text>{item.text}, {item.created_at}</Text>}
+                          keyExtractor = {(item, index) => index.toString() }/>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        backgroundColor: '#F5FCFF',
+    },
+    content: {
+        padding: 10
+    }
 });
