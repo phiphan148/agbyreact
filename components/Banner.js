@@ -45,21 +45,20 @@ class Banner extends React.Component {
 const styles = StyleSheet.create({
     banner: {
         backgroundColor: '#fff',
-        minHeight: hp('35%'),
         paddingBottom: 5,
     },
     bannerImg: {
-        height: hp('30%'),
+        height: 130,
         width: wp('100%'),
         position: 'relative',
     },
     profileImg: {
-        height: wp('20%'),
-        width: wp('20%'),
+        height: 70,
+        width: 70,
         position: 'absolute',
-        top: hp('23%'),
+        top: 90,
         left: wp('3%'),
-        borderRadius: wp('10%'),
+        borderRadius: 35,
     },
     titleColor: {
         color: '#0B91C2'

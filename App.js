@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ActivityIndicator, FlatList, Image, SectionList} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, FlatList, Image, SectionList, Linking} from 'react-native';
 import Header from './components/Header';
 import Banner from './components/Banner';
+import AppNavigator from './AppNavigator';
 
-export default class App extends React.Component {
+type
+Props = {};
+export default class App extends Component<Props> {
 
     constructor(props) {
         super(props);
@@ -40,28 +43,13 @@ export default class App extends React.Component {
         return (
             <View style={styles.container}>
                 <Header name={this.state.dataInfo.name}/>
-                <Banner urlBanner={this.state.dataInfo.profile_banner_url}
-                        urlProfile={this.state.dataInfo.profile_image_url}
-                        twitter={this.state.dataInfo.tweets_count}
-                        favorite={this.state.dataInfo.likes_count}
-                        following={this.state.dataInfo.followings_count}
-                        followers={this.state.dataInfo.followers_count}/>
-                <FlatList style={styles.content} data={this.state.dataTweet}
-                          renderItem={({item}) =>
-                              <View style={styles.tweetContent}>
-                                  <Text style={styles.section}>{item.text}</Text>
-                                  {
-                                      item.photo_link_text !== null
-                                          ?
-                                          <Image style={{width: 125, height: 50, paddingTop: 5}} source={{uri: item.photo_link_text}}></Image>
-                                          :
-                                          <Text style={{display: 'none'}}></Text>
-                                  }
-
-                                  <Text style={[styles.titleColor, styles.section]}>{item.created_at}</Text>
-                              </View>
-                          }
-                          keyExtractor={(item, index) => index.toString()}/>
+                <Banner  urlBanner={this.state.dataInfo.profile_banner_url}
+                         urlProfile={this.state.dataInfo.profile_image_url}
+                         twitter={this.state.dataInfo.tweets_count}
+                         favorite={this.state.dataInfo.likes_count}
+                         following={this.state.dataInfo.followings_count}
+                         followers={this.state.dataInfo.followers_count}/>
+                <AppNavigator style={{backgroundColor: '#000'}} screenProps={{ dataTweet: this.state.dataTweet }} />
             </View>
         );
     }
@@ -69,24 +57,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#f5fcff',
         flex: 1
-    },
-    content: {
-        flex: 1,
-        paddingTop: 5
-    },
-    tweetContent: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 5,
-        borderBottomWidth: 1,
-        borderBottomColor: '#B2b2b2'
-    },
-    titleColor: {
-        color: '#0B91C2'
-    },
-    section: {
-        paddingTop: 5,
     }
 });

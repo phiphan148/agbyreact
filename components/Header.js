@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 const twitterIcon = (
     <Icon name="twitter" size={15} color="#0B91C2">
     </Icon>);
@@ -14,7 +15,9 @@ class Header extends React.Component {
         return (
             <View style={styles.header}>
                 <Text style={styles.titleColor}>{this.props.name}</Text>
-                <Text style={styles.titleColor}>{twitterIcon} Follow us</Text>
+                <Text onPress={() => {
+                    Linking.openURL('https://twitter.com/blockchainag?lang=en')
+                }} style={styles.titleColor}>{twitterIcon} Follow us</Text>
             </View>
 
         )
