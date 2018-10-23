@@ -14,7 +14,7 @@ export default class App extends Component<Props> {
     }
 
     componentDidMount() {
-        return fetch('https://api.myjson.com/bins/10orsc')
+        return fetch('https://api.myjson.com/bins/i1r5g')
             .then((response) => response.json())
             .then((responseJson) => {
 
