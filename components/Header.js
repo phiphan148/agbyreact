@@ -1,5 +1,9 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+const twitterIcon = (
+    <Icon name="twitter" size={15} color="#0B91C2">
+    </Icon>);
 
 class Header extends React.Component {
     constructor(props) {
@@ -10,7 +14,7 @@ class Header extends React.Component {
         return (
             <View style={styles.header}>
                 <Text style={styles.titleColor}>{this.props.name}</Text>
-                <Text style={styles.titleColor}>Follow us</Text>
+                <Text style={styles.titleColor}>{twitterIcon} Follow us</Text>
             </View>
 
         )
